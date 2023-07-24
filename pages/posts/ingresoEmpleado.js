@@ -1,7 +1,14 @@
 import Head from "next/head";
 import styles from "../../styles/IngresoE.module.css";
 
+
+
 export default function ingresoE() {
+  maxLengthCheck = (object) => {
+  if (object.target.value.length > object.target.maxLength) {
+   object.target.value = object.target.value.slice(0, object.target.maxLength)
+    }
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -14,17 +21,29 @@ export default function ingresoE() {
 
         <div className={styles.loginForm}>
           <form>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="user">Nombre de usuario (Maxima Cadena: 15)</label>
             <br />
-            <input type="text" id="email" className={styles.form} />
+            <input
+              type="text"
+              id="user"
+              maxLength={15}
+              className={styles.form}
+            />
             <br />
             <br />
-            <label htmlFor="password">Contraseña:</label>
+            <label htmlFor="password" maxLength={10}>
+              Contraseña (Maxima Cadena: 10)
+            </label>
             <br />
+
+            {/* ARREGLAR MAX LENGTH, EN TODO */}
             <input
               type="input"
               id="password"
               name="password"
+              maxLength={10}
+              value={userName}
+              onInput={this.maxLengthCheck}
               className={styles.form}
             />
             <br />

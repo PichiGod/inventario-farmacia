@@ -6,10 +6,10 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Inventario - Login</title>
-        <link rel="icon" href="/favicon.ico" />
-        
-        
+        <link rel="icon" href="/favicon.ico" />  
       </Head>
+
+      {/* Agregar una ruta fija para el unico ADMIN */}
 
       <main>
         <h1 className={styles.title}>
@@ -19,8 +19,8 @@ export default function Home() {
 
         <div className={styles.loginForm}>
           <form>
-            <label for='email'>Email</label><br/>
-            <input type='email' id='email' className={styles.form}/><br/><br/>
+            <label for='user'>Usuario</label><br/>
+            <input type='text' id='user' name='user' className={styles.form}/><br/><br/>
             <label for='password'>Password</label><br/>
             <input type='password' id='password' className={styles.form}/><br/><br/>
             <button type='submit' id='submit-login' className={styles.submitLogin}>Ingresar</button>

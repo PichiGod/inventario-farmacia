@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Tstyles from "../../styles/Tabla.module.css";
 import "bootstrap/dist/css/bootstrap.css";
+import images from "./assests/images";
+import Image from "next/image";
 
 export default function tablas() {
   return (
-    <div>
+    <div className="mt-3">
       <Head>
         <title>Inventario - Tablas</title>
         <link rel="icon" href="/favicon.ico" />
@@ -35,24 +37,42 @@ export default function tablas() {
             </thead>
             <tbody>
               <tr>
-                <td>123456789</td>
+                <td>123456</td>
                 <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                 <td>Medicamento</td>
-                <td>Farmacia del Pueblo</td>
-                <td>100</td>
+                <td>Farmacia del Pueblo -Hola</td>
+                <td>100000</td>
                 <td>2023-03-08</td>
                 <td>123456</td>
-                <td>Juan Perez</td>
+                <td>Juan Perez Medina de Medicina, Barquisimeto y Coro</td>
                 <td>2023-02-08</td>
                 <td>Maria Garcia</td>
                 <td>123456789</td>
                 <td>123456</td>
                 <td>30</td>
-                <td>image.png</td>
+                <td><Image src={images.img} id="imgCargar" className="w-75 h-75" /></td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <div className="container mt-3 pb-3 pt-3 bg-light-subtle text-emphasis-light rounded border border-3">
+          <h4>Ingresar un producto</h4>
+          <hr className="me-5"/>
+          <span className={Tstyles.inline}>
+            <a className="btn btn-secondary me-3">Existente</a>
+            <a className="btn btn-light">Nuevo</a>
+          </span>
+        </div>
+
+        <div className="container mt-3 pb-3 pt-3 bg-light-subtle text-emphasis-light rounded border border-3">
+          <h4>Ingresar a un empleado</h4>
+          <hr className="me-5"/>
+          <span className={Tstyles.inline}>
+            <a className="btn btn-secondary me-3">Ingresar</a>
+          </span>
+        </div>
+
 
       </main>
 

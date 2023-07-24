@@ -34,9 +34,10 @@ export default function productoExistente() {
                     <label htmlFor="serial"># Serial</label>
                     <br />
                     <input
-                      type="number"
+                      type="text"
                       id="serial"
                       name="serial"
+                      maxLength={6}
                       required
                     ></input>
                   </div>
@@ -48,6 +49,7 @@ export default function productoExistente() {
                       type="text"
                       id="clasif"
                       name="clasif"
+                      maxLength={15}
                       required
                     ></input>
                   </div>
@@ -74,6 +76,7 @@ export default function productoExistente() {
                       type="text"
                       id="proveedor"
                       name="proveedor"
+                      maxLength={25}
                       required
                     ></input>
                   </div>
@@ -81,7 +84,12 @@ export default function productoExistente() {
                   <div>
                     <label htmlFor="cantidad">Cantidad del producto</label>
                     <br />
-                    <input type="number" id="cant" name="cant" required></input>
+                    <input 
+                      type="number" 
+                      id="cant" 
+                      name="cant" 
+                      maxLength={6}
+                      required></input>
                   </div>
                 </div>
 
@@ -129,7 +137,7 @@ export default function productoExistente() {
                     <br />
                     <input
                       type="text"
-                      maxLength={8}
+                      maxLength={9}
                       id="factr"
                       name="factr"
                       required
@@ -143,7 +151,7 @@ export default function productoExistente() {
                     <br />
                     <input
                       type="text"
-                      maxLength={8}
+                      maxLength={6}
                       id="control"
                       name="control"
                       required

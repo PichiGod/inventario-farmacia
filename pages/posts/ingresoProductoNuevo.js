@@ -22,9 +22,18 @@ export default function productoNuevo() {
               <div className="col">
                 <div className="d-flex justify-content-center align-items-center">
                   <div className="col mt-5">
-                    <Image src={images.img} alt="imagenPrueba" className={styles.ingresoIMG} />
+                    <Image
+                      src={images.img}
+                      alt="imagenPrueba"
+                      className={styles.ingresoIMG}
+                    />
                     <br />
-                    <input type="file" className="mt-3" accept=".jpg, .png, .wepb" required />
+                    <input
+                      type="file"
+                      className="mt-3"
+                      accept=".jpg, .png, .wepb"
+                      required
+                    />
                   </div>
                 </div>
               </div>
@@ -35,9 +44,10 @@ export default function productoNuevo() {
                     <label htmlFor="serial"># Serial</label>
                     <br />
                     <input
-                      type="number"
+                      type="text"
                       id="serial"
                       name="serial"
+                      maxLength={6}
                       required
                     ></input>
                   </div>
@@ -49,6 +59,8 @@ export default function productoNuevo() {
                       type="text"
                       id="clasif"
                       name="clasif"
+                      // PONER FUNCION QUE NO PERMITA NUMEROS
+                      maxLength={15}
                       required
                     ></input>
                   </div>
@@ -75,6 +87,7 @@ export default function productoNuevo() {
                       type="text"
                       id="proveedor"
                       name="proveedor"
+                      maxLength={25}
                       required
                     ></input>
                   </div>
@@ -82,7 +95,12 @@ export default function productoNuevo() {
                   <div>
                     <label htmlFor="cantidad">Cantidad del producto</label>
                     <br />
-                    <input type="number" id="cant" name="cant" required></input>
+                    <input 
+                      type="number" 
+                      id="cant" 
+                      name="cant" 
+                      maxLength={6}
+                      required></input>
                   </div>
                 </div>
 
@@ -121,6 +139,7 @@ export default function productoNuevo() {
                       maxLength={50}
                       id="farmaceuta"
                       name="farmaceuta"
+                      // PONER FUNCION QUE NO PERMITA NUMEROS
                       required
                     ></input>
                   </div>
@@ -129,8 +148,8 @@ export default function productoNuevo() {
                     <label htmlFor="factr">Factura de recepcion</label>
                     <br />
                     <input
-                      type="number"
-                      maxLength={6}
+                      type="text"
+                      maxLength={9}
                       id="factr"
                       name="factr"
                       required
@@ -143,8 +162,8 @@ export default function productoNuevo() {
                     <label htmlFor="control"># de control de factura</label>
                     <br />
                     <input
-                      type="number"
-                      maxLength={8}
+                      type="text"
+                      maxLength={6}
                       id="control"
                       name="control"
                       required
