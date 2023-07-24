@@ -1,0 +1,25 @@
+.container{
+    margin-top: 3rem;
+    margin-left: 1.5rem;
+}
+
+.DTable{
+    overflow-x: auto;
+
+    margin-right: 1rem;
+}
+
+.table{
+    background-color: white;
+    box-shadow: 0.25rem 0.25rem 1rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    
+    width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border-collapse: collapse;
+}
+

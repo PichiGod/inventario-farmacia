@@ -33,11 +33,46 @@
   text-align: center;
 }
 
+.subtitle {
+  font-size: 2rem;
+  margin-bottom: 5rem;
+}
 
-.description {
-  line-height: 1.5;
+.loginForm{
+  background-color:  white;
+  padding: 4.5rem;
+  border-radius: 10%;
+  box-shadow: 0.25rem 0.25rem 1rem;
+
+  font-family: Verdana, sans-serif;
+  color: #3d403e;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.form{
+  width: 20rem;
+  height: 2.5rem;
+  margin-top: 0.6rem;
+  margin-bottom: 1.5rem;
+
   font-size: 1.5rem;
 }
+
+.submitLogin{
+  width: 10rem;
+  height: 3rem;
+  border-radius: 30px;
+
+  font-family: Verdana, sans-serif;
+  font-size: 1.2rem;
+
+  border: none;
+
+  color: rgb(48, 51, 50);
+  background-color: #74fc6f;
+}
+
 
 .grid {
   display: flex;
