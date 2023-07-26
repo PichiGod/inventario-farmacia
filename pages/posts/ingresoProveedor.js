@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../../styles/IngresoE.module.css";
-import { useState, useEffect } from "react";
+import {useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
@@ -8,86 +8,56 @@ export default function ingresoE() {
   const [dataResponse, setdataResponse] = useState({
   });
 
-  const [data, setData] = useState({
-    usuario: "",
-    password: "",
+  const [proveedor, setProveedor] = useState({
   });
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `/api/getUser`;
+      const apiUrl = `/api/getProveedor`;
       const response = await fetch(apiUrl);
       const res = await response.json();
-      console.log(res.users);
-      setdataResponse(res.users);
+      console.log(res.proveedor);
+      setdataResponse(res.proveedor);
     }
     getPageData();
   }, []);
 
   const handleChange = ({ target: { name, value } }) =>{
-    setData({ ...data, [name]: value });
+    setProveedor({ ...proveedor, [name]: value });
   }
+    
 
-  const handleSubmit = async () => {
-    console.log(data);
+  const handleSubmit = async (e) => {
+    // console.log(proveedor);
     for (let index = 0; index < dataResponse.length; index++) {
-      if ((dataResponse[index].usuario.toLowerCase() == data.usuario.toLowerCase())) {
-         return alert("El usuario ya existe");
+      if ((dataResponse[index].proveedor.toLowerCase() == proveedor.proveedor.toLowerCase())) {
+         return alert("El nombre del proveedor ya existe");
       }
     }
-    const userData = {
-      usuario: data.usuario,
-      password: data.usuario
-    };
-    try{
-      const res = await axios.post(`/api/insertUser`, userData);
-      console.log(res.response.data);
-    }catch (error){
-      console.error(error.response.data);
-    }
-    // 
-    // console.log(res);
-
+    const res = await axios.post("/api/insertProveedor", proveedor);
+    console.log(res);
   };
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Ingreso Empleado</title>
+        <title>Ingreso Proveedor</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className={styles.title}>Ingreso empleados...</h1>
+        <h1 className={styles.title}>Ingreso Proveedor...</h1>
 
         <div className={styles.loginForm}>
           <form>
-            <label htmlFor="usuario">Nombre de usuario (Maxima Cadena: 25)</label>
+            <label htmlFor="user">Nombre de proveedor (Maxima Cadena: 25)</label>
             <br />
             <input
               type="text"
-              id="usuario"
-              name="usuario"
+              id="proveedor"
+              name="proveedor"
               maxLength={25}
-              value={data.email}
               onChange={handleChange}
-              className={styles.form}
-              required
-            />
-            <br />
-            <br />
-            <label htmlFor="password">
-              Contraseña (Maxima Cadena: 25)
-            </label>
-            <br />
-
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-              maxLength={25}
               className={styles.form}
               required
             />

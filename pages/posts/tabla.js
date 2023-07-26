@@ -3,8 +3,22 @@ import Tstyles from "../../styles/Tabla.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import images from "./assests/images";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function tablas() {
+  const [dataResponse, setdataResponse] = useState([]);
+  useEffect(() =>{
+    async function getPageData () {
+      const apiUrl = `/api/getTableData`;
+      const response = await fetch(apiUrl);
+      const res = await response.json();
+      console.log(res.products);
+      setdataResponse(res.products)
+    }
+    getPageData();
+  }, []);
+
   return (
     <div className="mt-3">
       <Head>
@@ -36,7 +50,27 @@ export default function tablas() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {dataResponse.map((product) => {
+                return(
+                  <tr>
+                    <td>{product.serial}</td>
+                    <td>{product.descripcion}</td>
+                    <td>{product.clasif}</td>
+                    <td>{product.proveedor}</td>
+                    <td>{product.cantidad}</td>
+                    <td>{product.fven}</td>
+                    <td>{product.lote}</td>
+                    <td>{product.farmaceuta}</td>
+                    <td>{product.fingreso}</td>
+                    <td>{product.usuario}</td>
+                    <td>{product.factura}</td>
+                    <td>{product.fcontrol}</td>
+                    <td>{product.dven}</td>
+                    <td><Image src={product.ruta} alt="..." className="w-75 h-75" /></td>
+                  </tr>
+                );
+              })}
+              {/* <tr>
                 <td>123456</td>
                 <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                 <td>Medicamento</td>
@@ -50,8 +84,8 @@ export default function tablas() {
                 <td>123456789</td>
                 <td>123456</td>
                 <td>30</td>
-                <td><Image src={images.img} id="imgCargar" className="w-75 h-75" /></td>
-              </tr>
+                <td><Image src={images.img} id="imgCargar" alt="prueba" className="w-75 h-75" /></td>
+              </tr> */}
             </tbody>
           </table>
         </div>
@@ -60,8 +94,8 @@ export default function tablas() {
           <h4>Ingresar un producto</h4>
           <hr className="me-5"/>
           <span className={Tstyles.inline}>
-            <a className="btn btn-secondary me-3">Existente</a>
-            <a className="btn btn-light">Nuevo</a>
+            <Link className="btn btn-secondary me-3" href="/posts/ingresoProductoExistente">Existente</Link>
+            <Link className="btn btn-light" href="/posts/ingresoProductoNuevo">Nuevo</Link>
           </span>
         </div>
 
@@ -69,11 +103,25 @@ export default function tablas() {
           <h4>Ingresar a un empleado</h4>
           <hr className="me-5"/>
           <span className={Tstyles.inline}>
-            <a className="btn btn-secondary me-3">Ingresar</a>
+            <Link className="btn btn-secondary me-3" href="/posts/ingresoEmpleado">Ingresar</Link>
           </span>
         </div>
 
+        <div className="container mt-3 pb-3 pt-3 bg-light-subtle text-emphasis-light rounded border border-3">
+          <h4>Ingresar a un proveedor</h4>
+          <hr className="me-5"/>
+          <span className={Tstyles.inline}>
+            <Link href="/posts/ingresoProveedor" className="btn btn-secondary me-3">Ingresar</Link>
+          </span>
+        </div>
 
+        <div className="container mt-3 mb-3 pb-3 pt-3 bg-light-subtle text-emphasis-light rounded border border-3">
+          <h4>Ingresar una clasificacion</h4>
+          <hr className="me-5"/>
+          <span className={Tstyles.inline}>
+            <Link className="btn btn-secondary me-3" href="/">Ingresar</Link>
+          </span>
+        </div>
       </main>
 
       <style jsx global>{`

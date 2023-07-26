@@ -3,8 +3,37 @@ import "bootstrap/dist/css/bootstrap.css";
 import styles from "../../styles/IngresoP.module.css";
 import images from "./assests/images";
 import Image from "next/image";
+import axios from "axios";
+import { useState } from "react";
 
 export default function productoNuevo() {
+  const [product, setProduct] = useState({
+    serial: "",
+    clasificacion: "",
+    descripcion: "",
+    proveedor: "",
+    cantidad: 0,
+    fven: Date,
+    lote: 0,
+    farmaceuta: "",
+    factura: "",
+    fcontrol: "",
+    dven: Date,
+    user: "",
+    fingreso: Date,
+    ruta: ""
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefualt();
+    product.fingreso = new Date();
+    product.user = "pichi";
+    const res = await axios.post("/api/insertNew", product);
+    console.log(res);
+  };
+
+  const handleChange = ({target: {name, value}}) =>
+    setProduct({...product, [name]: value});
+
   return (
     <div>
       <Head>
@@ -30,8 +59,10 @@ export default function productoNuevo() {
                     <br />
                     <input
                       type="file"
+                      name="image-file"
                       className="mt-3"
                       accept=".jpg, .png, .wepb"
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -48,6 +79,7 @@ export default function productoNuevo() {
                       id="serial"
                       name="serial"
                       maxLength={6}
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -61,6 +93,7 @@ export default function productoNuevo() {
                       name="clasif"
                       // PONER FUNCION QUE NO PERMITA NUMEROS
                       maxLength={15}
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -76,6 +109,7 @@ export default function productoNuevo() {
                   id="descrip"
                   name="descrip"
                   className={styles.descripcion}
+                  onChange={handleChange}
                   required
                 ></input>
 
@@ -88,6 +122,7 @@ export default function productoNuevo() {
                       id="proveedor"
                       name="proveedor"
                       maxLength={25}
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -95,12 +130,15 @@ export default function productoNuevo() {
                   <div>
                     <label htmlFor="cantidad">Cantidad del producto</label>
                     <br />
-                    <input 
-                      type="number" 
-                      id="cant" 
-                      name="cant" 
+                    <input
+                      type="number"
+                      id="cant"
+                      name="cant"
+                      min={0}
                       maxLength={6}
-                      required></input>
+                      onChange={handleChange}
+                      required
+                    ></input>
                   </div>
                 </div>
 
@@ -113,6 +151,7 @@ export default function productoNuevo() {
                       id="fven"
                       name="fven"
                       className={styles.fechaven}
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -125,6 +164,7 @@ export default function productoNuevo() {
                       maxLength={6}
                       id="lote"
                       name="lote"
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -139,6 +179,7 @@ export default function productoNuevo() {
                       maxLength={50}
                       id="farmaceuta"
                       name="farmaceuta"
+                      onChange={handleChange}
                       // PONER FUNCION QUE NO PERMITA NUMEROS
                       required
                     ></input>
@@ -152,6 +193,7 @@ export default function productoNuevo() {
                       maxLength={9}
                       id="factr"
                       name="factr"
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -166,6 +208,7 @@ export default function productoNuevo() {
                       maxLength={6}
                       id="control"
                       name="control"
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
@@ -178,9 +221,16 @@ export default function productoNuevo() {
                       id="dven"
                       name="dven"
                       className={styles.fechaven}
+                      onChange={handleChange}
                       required
                     ></input>
                   </div>
+
+                  <label htmlFor="fingreso">Fecha de ingreso al sistema</label>
+                  <input type="date" hidden></input>
+
+                  <label htmlFor="pIngreso">Usuario ingreso</label>
+                  <input type="text" hidden></input>
                 </div>
               </div>
             </div>
@@ -211,10 +261,10 @@ export default function productoNuevo() {
 }
 {
   /* <label htmlFor="fingreso">Fecha de ingreso al sistema</label>
-                    <input type="date"></input>  */
+                    <input type="date" hidden></input>  */
 }
 
 {
   /* <label htmlFor="pIngreso">Usuario ingreso</label>
-                    <input type="date"></input>  */
+                    <input type="text" hidden></input>  */
 }
