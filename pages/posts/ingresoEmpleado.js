@@ -5,12 +5,11 @@ import Link from "next/link";
 import axios from "axios";
 
 export default function ingresoE() {
-  const [dataResponse, setdataResponse] = useState({
-  });
+  const [dataResponse, setdataResponse] = useState({});
 
-  const [data, setData] = useState({
+  var [data, setData] = useState({
     usuario: "",
-    password: "",
+    password: ""
   });
 
   useEffect(() => {
@@ -35,20 +34,14 @@ export default function ingresoE() {
          return alert("El usuario ya existe");
       }
     }
-    const userData = {
-      usuario: data.usuario,
-      password: data.usuario
-    };
-    try{
-      const res = await axios.post(`/api/insertUser`, userData);
-      console.log(res.response.data);
-    }catch (error){
-      console.error(error.response.data);
+    try {
+      const response = await axios.post('/api/insertUser', data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error, error.response.data);
     }
-    // 
-    // console.log(res);
-
   };
+
 
   return (
     <div className={styles.container}>
@@ -69,7 +62,6 @@ export default function ingresoE() {
               id="usuario"
               name="usuario"
               maxLength={25}
-              value={data.email}
               onChange={handleChange}
               className={styles.form}
               required
@@ -85,7 +77,6 @@ export default function ingresoE() {
               type="password"
               id="password"
               name="password"
-              value={data.password}
               onChange={handleChange}
               maxLength={25}
               className={styles.form}

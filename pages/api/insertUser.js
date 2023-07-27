@@ -1,12 +1,11 @@
 import mysql from "mysql2/promise";
 
-
 const dbconn = await mysql.createConnection({
-    host: "localhost",
-    database: "inventario",
-    user: "root",
-    password: "",
-  });
+  host: "localhost",
+  database: "inventario",
+  user: "root",
+  password: "",
+});
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -18,7 +17,6 @@ export default async function handler(req, res) {
 }
 
 const saveProduct = async (req, res) => {
-  
   try {
     const usuario = req.body.usuario;
     const password = req.body.password;
@@ -27,11 +25,12 @@ const saveProduct = async (req, res) => {
 
     //const query = "INSERT INTO proveedor(proveedor) VALUES ?", [proveedor];
 
-    const result = await dbconn.query("INSERT INTO user(usuario, password) VALUES (?,?)", {usuario, password});
+    const result = await dbconn.query(`INSERT INTO user (id, usuario, password) VALUES (NULL, ?, ?)`,[usuario, password]);
     dbconn.end();
 
     return res.status(200).json({ ...req.body, id: result.usuario });
   } catch (error) {
-    return res.status(error.message.status).json({message: error.message});;
-    }
+    console.log("Error en la consulta de datos:", error);
+    res.status(500).json({ error: error.message });
+  }
 };
