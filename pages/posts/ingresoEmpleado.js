@@ -28,7 +28,10 @@ export default function ingresoE() {
   }
 
   const handleSubmit = async () => {
-    console.log(data);
+    //console.log(data);
+    if (data.password.trim() == "" || data.usuario.trim() == ""){
+      return alert("Campo vacio")
+    }
     for (let index = 0; index < dataResponse.length; index++) {
       if ((dataResponse[index].usuario.toLowerCase() == data.usuario.toLowerCase())) {
          return alert("El usuario ya existe");

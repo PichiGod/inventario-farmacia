@@ -9,6 +9,7 @@ export default function ingresoE() {
   });
 
   const [proveedor, setProveedor] = useState({
+    proveedor: ""
   });
 
   useEffect(() => {
@@ -29,6 +30,9 @@ export default function ingresoE() {
 
   const handleSubmit = async (e) => {
     // console.log(proveedor);
+    if (proveedor.proveedor.trim() == ""){
+      return alert("Campo vacio")
+    }
     for (let index = 0; index < dataResponse.length; index++) {
       if ((dataResponse[index].proveedor.toLowerCase() == proveedor.proveedor.toLowerCase())) {
          return alert("El nombre del proveedor ya existe");
