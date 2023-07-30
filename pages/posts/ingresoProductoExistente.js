@@ -1,7 +1,7 @@
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../../styles/IngresoP.module.css";
-import images from "./assests/images";
+import images from "../../public/assests/images";
 import Image from "next/image";
 import axios from "axios";
 import { useState, useEffect } from "react";
