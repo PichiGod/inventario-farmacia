@@ -4,35 +4,215 @@ import styles from "../../styles/IngresoP.module.css";
 import images from "./assests/images";
 import Image from "next/image";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import QRCode from "qrcode";
+import Link from "next/link";
 
 export default function productoNuevo() {
+  const [dataProveedor, setdataProveedor] = useState([]);
+
+  const [dataTabla, setdataTabla] = useState({});
+
+  // const id = JSON.parse(localStorage.getItem("id"));
+  // console.log(id);
+
+  var hoy = new Date();
+  let day = hoy.getDate();
+  //console.log(day); // 23
+
+  let month = hoy.getMonth() + 1;
+  //console.log(month + 1); // 8
+
+  let year = hoy.getFullYear();
+  //console.log(year); // 2022
+  
+  let format = year + "-" + month + "-" + day;
+  //console.log(format); // 7/23/2022
+  
+  //hoy.setHours(0,0,0,0);
+  // console.log(hoy);
+
+  const [dataClasif, setdataClasif] = useState([]);
+
+  useEffect(() => {
+    async function getPageData() {
+      const apiUrl1 = `/api/getClasificacion`;
+      const response = await fetch(apiUrl1);
+      const res = await response.json();
+      console.log(res.clasif);
+      setdataClasif(res.clasif);
+
+      const apiUrl2 = `/api/getProveedor`;
+      const response2 = await fetch(apiUrl2);
+      const res2 = await response2.json();
+      console.log(res2.proveedor);
+      setdataProveedor(res2.proveedor);
+
+      const apiUrl3 = `/api/getProducts`;
+      const response3 = await fetch(apiUrl3);
+      const res3 = await response3.json();
+      console.log(res3.producto);
+      setdataTabla(res3.producto);
+
+      // const url = `/api/getSerialData`;
+      // const respuesta = await fetch(url);
+      // const bobo = await respuesta.json();
+      // console.log(bobo.search);
+      // setSearch(bobo.search);
+      // console.log(search);
+      
+      // const apiUrl4 = `/api/getUser`;
+
+      // const id = JSON.parse(localStorage.getItem("id"));
+      // console.log(id);
+
+      // let uploadpath = __dirname + "pages/posts/assests/img";
+      // console.log(uploadpath);
+    }
+    getPageData();
+  }, []);
+
   const [product, setProduct] = useState({
-    serial: "",
-    clasificacion: "",
+    serial: 0,
+    clasificacion: 0,
     descripcion: "",
-    proveedor: "",
+    proveedor: 0,
     cantidad: 0,
-    fven: Date,
+    fven: '',
     lote: 0,
     farmaceuta: "",
     factura: "",
     fcontrol: "",
-    dven: Date,
-    user: "",
-    fingreso: Date,
-    ruta: ""
+    dven: '',
+    user: 0,
+    fingreso: format,
+    ruta: "",
   });
+
+  // const [serial, setSerial] = useState(0);
+  // const [clasificacion, setClasificacion] = useState('');
+  // const [descripcion, setDescripcion] = useState('');
+  // const [proveedor, setProveedor] = useState('');
+  // const [cantidad, setCantidad] = useState(0);
+  // const [fven, setFven] = useState(Date);
+  // const [lote, setLote] = useState(0);
+  // const [farmaceuta, setFarmaceuta] = useState('');
+  // const [factura, setFactura] = useState('');
+  // const [fcontrol, setFcontrol] = useState('');
+  // const [dven, setDven] = useState(Date);
+  // const [ruta, setRuta] = useState('');
+
+  const [qrcode, setQrcode] = useState("");
+
   const handleSubmit = async (e) => {
-    e.preventDefualt();
-    product.fingreso = new Date();
-    product.user = "pichi";
-    const res = await axios.post("/api/insertNew", product);
-    console.log(res);
+    const id = JSON.parse(localStorage.getItem("id"));
+    //console.log(id);
+
+    // var file = document.getElementById("ruta").files;
+    // console.log(file);
+
+    // const file = document.getElementById("ruta").files;
+    // const filedata = new FormData();
+    // filedata.append("file", file);
+    // console.log(file)
+    // console.log(filedata);
+
+    const data = {
+          serial: product.serial,
+          clasificacion: product.clasificacion,
+          descripcion: product.descripcion,
+          proveedor: product.proveedor,
+          cantidad: parseInt(product.cantidad),
+          fven: product.fven,
+          lote: product.lote,
+          farmaceuta: product.farmaceuta,
+          factura: product.factura,
+          fcontrol: product.fcontrol,
+          dven: product.dven,
+          user: parseInt(id),
+          fingreso: format,
+          ruta: 1
+    }
+
+    console.log(data);
+    // try {
+    //   const res = await axios.post("/api/insertImg", {
+    //   filedata,
+       
+    //     headers: {
+    //     "Content-Type": "multipart/form-data",
+    //     "x-rapidapi-host": "file-upload8.p.rapidapi.com",
+    //     "x-rapidapi-key": "your-rapidapi-key-here",
+      
+    // },
+      
+    // });
+    //   alert("Imagen guardada correctamente");
+    //   console.log(res.data);
+      try {
+        const res1 = await axios.post("/api/insertProduct", {
+          serial: product.serial,
+          clasificacion: product.clasificacion,
+          descripcion: product.descripcion,
+          proveedor: product.proveedor,
+          cantidad: parseInt(product.cantidad),
+          fven: product.fven,
+          lote: product.lote,
+          farmaceuta: product.farmaceuta,
+          factura: product.factura,
+          fcontrol: product.fcontrol,
+          dven: product.dven,
+          user: parseInt(id),
+          fingreso: format,
+          ruta: 1
+        })
+        console.log(res1);
+        alert("Ingresado exitosamente");
+      } catch (error) {
+        console.log(error, error.response.data);
+      }
+    // } catch (error) {
+    //   console.log(error, error.response);
+    // }
+    
+    // // console.log(res);
+
+    //console.log(data);
+
+    QRCode.toDataURL("https://github.com/PichiGod").then(setQrcode);
   };
 
-  const handleChange = ({target: {name, value}}) =>
-    setProduct({...product, [name]: value});
+  const handleChange = ({ target: { name, value } }) => {
+    setProduct({ ...product, [name]: value });
+  };
+
+  // const handleimgchange = (e) => {
+  //   const file = e.target.files[0];
+  //   const filedata = new FormData();
+  //   filedata.append("file", file);
+  //   console.log(file)
+  //   console.log(filedata);
+  // }
+
+  function onFileSelected() {
+    var file = document.getElementById("ruta").files;
+
+    if (file.length > 0) {
+      var fileReader = new FileReader();
+
+      fileReader.onload = function (ev) {
+        document
+          .getElementById("changeImg")
+          .setAttribute("srcset", ev.target.result);
+      };
+
+      fileReader.readAsDataURL(file[0]);
+    }
+  }
+
+  function dosActions(){
+    onFileSelected();
+  }
 
   return (
     <div>
@@ -53,18 +233,23 @@ export default function productoNuevo() {
                   <div className="col mt-5">
                     <Image
                       src={images.img}
+                      id="changeImg"
                       alt="imagenPrueba"
                       className={styles.ingresoIMG}
                     />
                     <br />
                     <input
                       type="file"
-                      name="image-file"
+                      name="ruta"
+                      id="ruta"
                       className="mt-3"
-                      accept=".jpg, .png, .wepb"
-                      onChange={handleChange}
+                      accept="image/*"
+                      onChange={dosActions}
                       required
                     />
+                    <br />
+
+                    <img className="mt-3" id="qr" src={qrcode}></img>
                   </div>
                 </div>
               </div>
@@ -75,7 +260,7 @@ export default function productoNuevo() {
                     <label htmlFor="serial"># Serial</label>
                     <br />
                     <input
-                      type="text"
+                      type="number"
                       id="serial"
                       name="serial"
                       maxLength={6}
@@ -85,17 +270,20 @@ export default function productoNuevo() {
                   </div>
 
                   <div>
-                    <label htmlFor="clasif">Clasificacion</label>
+                    <label htmlFor="clasificacion">Clasificacion</label>
                     <br />
-                    <input
-                      type="text"
-                      id="clasif"
-                      name="clasif"
-                      // PONER FUNCION QUE NO PERMITA NUMEROS
-                      maxLength={15}
-                      onChange={handleChange}
-                      required
-                    ></input>
+                    <select name="clasificacion" id="clasificacion" className={styles.fechaven} onChange={handleChange}>
+                      <option defaultValue='' >
+                        Seleccionar clasificacion
+                      </option>
+                      {dataClasif.map((clasificacion) => {
+                        return (
+                          <option value={clasificacion.id}>
+                            {clasificacion.clasif}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
                 </div>
 
@@ -106,8 +294,8 @@ export default function productoNuevo() {
                 <input
                   type="text"
                   maxLength={75}
-                  id="descrip"
-                  name="descrip"
+                  id="descripcion"
+                  name="descripcion"
                   className={styles.descripcion}
                   onChange={handleChange}
                   required
@@ -117,14 +305,19 @@ export default function productoNuevo() {
                   <div className="me-3">
                     <label htmlFor="proveedor">Proveedor</label>
                     <br />
-                    <input
-                      type="text"
-                      id="proveedor"
-                      name="proveedor"
-                      maxLength={25}
-                      onChange={handleChange}
-                      required
-                    ></input>
+                    <select name="proveedor" id="proveedor" className={styles.fechaven} onChange={handleChange}>
+                      <option defaultValue={''}
+                      >
+                        Seleccionar Proveedor
+                      </option>
+                      {dataProveedor.map((proveedor) => {
+                        return(
+                          <option value={proveedor.id}>
+                            {proveedor.proveedor}
+                          </option>
+                        )
+                      })}
+                    </select>
                   </div>
 
                   <div>
@@ -132,8 +325,8 @@ export default function productoNuevo() {
                     <br />
                     <input
                       type="number"
-                      id="cant"
-                      name="cant"
+                      id="cantidad"
+                      name="cantidad"
                       min={0}
                       maxLength={6}
                       onChange={handleChange}
@@ -191,8 +384,8 @@ export default function productoNuevo() {
                     <input
                       type="text"
                       maxLength={9}
-                      id="factr"
-                      name="factr"
+                      id="factura"
+                      name="factura"
                       onChange={handleChange}
                       required
                     ></input>
@@ -206,8 +399,8 @@ export default function productoNuevo() {
                     <input
                       type="text"
                       maxLength={6}
-                      id="control"
-                      name="control"
+                      id="fcontrol"
+                      name="fcontrol"
                       onChange={handleChange}
                       required
                     ></input>
@@ -226,18 +419,31 @@ export default function productoNuevo() {
                     ></input>
                   </div>
 
-                  <label htmlFor="fingreso">Fecha de ingreso al sistema</label>
+                  <label htmlFor="fingreso" hidden>
+                    Fecha de ingreso al sistema
+                  </label>
                   <input type="date" hidden></input>
 
-                  <label htmlFor="pIngreso">Usuario ingreso</label>
+                  <label htmlFor="pIngreso" hidden>
+                    Usuario ingreso
+                  </label>
                   <input type="text" hidden></input>
                 </div>
               </div>
             </div>
           </form>
           <span className={styles.inline}>
-            <button className={styles.submitLogin}>Ingresar</button>
-            <a className={styles.Back}>Volver</a>
+            <button
+              className={styles.submitLogin}
+              onClick={(e) => {
+                e.preventDefault(),
+                  console.log("Enviando Datos..."),
+                  handleSubmit();
+              }}
+            >
+              Ingresar
+            </button>
+            <Link className={styles.Back} href="/posts/tabla">Volver</Link>
           </span>
         </div>
       </main>

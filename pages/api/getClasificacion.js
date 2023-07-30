@@ -9,12 +9,12 @@ export default async function tableData(req, res) {
   });
   try {
     const query =
-      `SELECT * FROM user`;
+      `SELECT * FROM clasificacion`;
     const values = [];
     const [data] = await dbconn.execute(query, values);
     dbconn.end();
 
-    res.status(200).json({users: data})
+    res.status(200).json({clasif: data})
   } catch (error) {
     console.log("Error en la consulta de datos:", error);
     res.status(500).json({error: error.message})

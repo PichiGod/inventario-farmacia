@@ -1,7 +1,57 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import { useEffect, useState } from 'react';
+
 
 export default function Home() {
+  const [dataResponse, setdataResponse] = useState({})
+
+  const [userLogin, setUserLogin] = useState({
+    user:'',
+    password:''
+  });
+
+  useEffect(() => {
+    async function getPageData() {
+      const apiUrl = `/api/getUser`;
+      const response = await fetch(apiUrl);
+      const res = await response.json();
+      console.log(res.users);
+      setdataResponse(res.users);
+    }
+    getPageData();
+  }, []);
+
+  function userId(Userid) {
+    localStorage.setItem("id", Userid );
+    const id = localStorage.getItem("id");
+    console.log(id);
+    //window.location.reload();
+    window.location.href='/posts/tabla';
+  };
+
+  function onLogin(){
+    console.log(userLogin)
+    if(userLogin.user == "admin" && userLogin.password == "admin"){
+      console.log("Bienvenido Administrador");
+      localStorage.setItem("id", 1);
+      // Redireccionamiento a la pagina principal del administrador
+      window.location.href='/posts/tabla';
+    }
+    else{
+      for (let index = 0; index < dataResponse.length; index++) {
+        if ((dataResponse[index].usuario == userLogin.user && dataResponse[index].password == userLogin.password)) {
+           return (userId(dataResponse[index].id))
+        }
+      }
+    }
+    
+  }
+
+  const handleChange = ({ target: { name, value } }) =>{
+    setUserLogin({ ...userLogin, [name]: value });
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -19,11 +69,11 @@ export default function Home() {
 
         <div className={styles.loginForm}>
           <form>
-            <label for='user'>Usuario</label><br/>
-            <input type='text' id='user' name='user' className={styles.form}/><br/><br/>
-            <label for='password'>Password</label><br/>
-            <input type='password' id='password' className={styles.form}/><br/><br/>
-            <button type='submit' id='submit-login' className={styles.submitLogin}>Ingresar</button>
+            <label htmlFor='user'>Usuario</label><br/>
+            <input type='text' onChange={handleChange} id='user' name='user' className={styles.form}/><br/><br/>
+            <label htmlFor='password'>Password</label><br/>
+            <input type='password' name='password' onChange={handleChange} id='password' className={styles.form}/><br/><br/>
+            <button onClick={(e) => {e.preventDefault(), onLogin()}} id='submit-login' className={styles.submitLogin}>Ingresar</button>
           </form>
         </div>
 

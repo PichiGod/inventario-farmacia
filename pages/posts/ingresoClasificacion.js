@@ -8,62 +8,62 @@ export default function ingresoE() {
   const [dataResponse, setdataResponse] = useState({
   });
 
-  const [proveedor, setProveedor] = useState({
-    proveedor: ""
+  const [clasificacion, setClasificacion] = useState({
+    clasificacion: ""
   });
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `/api/getProveedor`;
+      const apiUrl = `/api/getClasificacion`;
       const response = await fetch(apiUrl);
       const res = await response.json();
-      console.log(res.proveedor);
-      setdataResponse(res.proveedor);
+      console.log(res.clasif);
+      setdataResponse(res.clasif);
     }
     getPageData();
   }, []);
 
   const handleChange = ({ target: { name, value } }) =>{
-    setProveedor({ ...proveedor, [name]: value });
+    setClasificacion({ ...clasificacion, [name]: value });
   }
     
 
   const handleSubmit = async (e) => {
-    // console.log(proveedor);
-    if (proveedor.proveedor.trim() == ""){
+    console.log(clasificacion);
+    if (clasificacion.clasificacion.trim() == ""){
       return alert("Campo vacio")
     }
     for (let index = 0; index < dataResponse.length; index++) {
-      if ((dataResponse[index].proveedor.toLowerCase().trim() == proveedor.proveedor.toLowerCase().trim())) {
+      if ((dataResponse[index].clasif.toLowerCase().trim() == clasificacion.clasificacion.toLowerCase().trim())) {
          return alert("El nombre del proveedor ya existe");
       }
     }
     try {
-      const response = await axios.post("/api/insertProveedor", proveedor);
-      console.log(response.data);
+        const response = await axios.post("/api/insertClasificacion", clasificacion);
+        console.log(response.data)
     } catch (error) {
-      console.log(error, error.response.data);
+        console.log(error, error.response.data);
     }
   };
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Ingreso Proveedor</title>
+        <title>Ingreso Clasificacion</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className={styles.title}>Ingreso Proveedor...</h1>
+        <h1 className={styles.title}>Ingreso Clasificacion...</h1>
 
         <div className={styles.loginForm}>
           <form>
-            <label htmlFor="user">Nombre de proveedor (Maxima Cadena: 25)</label>
+            <label htmlFor="user">Nombre de clasificacion (Maxima Cadena: 25)</label>
             <br />
             <input
               type="text"
-              id="proveedor"
-              name="proveedor"
+              id="clasificacion"
+              name="clasificacion"
               maxLength={25}
               onChange={handleChange}
               className={styles.form}
