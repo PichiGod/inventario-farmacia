@@ -14,7 +14,7 @@ export default function ingresoE() {
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `/api/getClasificacion`;
+      const apiUrl = `../../backend/api/getClasificacion`;
       const response = await fetch(apiUrl);
       const res = await response.json();
       console.log(res.clasif);
@@ -35,11 +35,11 @@ export default function ingresoE() {
     }
     for (let index = 0; index < dataResponse.length; index++) {
       if ((dataResponse[index].clasif.toLowerCase().trim() == clasificacion.clasificacion.toLowerCase().trim())) {
-         return alert("El nombre del proveedor ya existe");
+         return alert("Esta clasificacion ya existe");
       }
     }
     try {
-        const response = await axios.post("/api/insertClasificacion", clasificacion);
+        const response = await axios.post("../../backend/api/insertClasificacion", clasificacion);
         console.log(response.data)
     } catch (error) {
         console.log(error, error.response.data);

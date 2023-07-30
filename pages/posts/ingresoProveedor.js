@@ -14,7 +14,7 @@ export default function ingresoE() {
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `/api/getProveedor`;
+      const apiUrl = `../../backend/api/getProveedor`;
       const response = await fetch(apiUrl);
       const res = await response.json();
       console.log(res.proveedor);
@@ -39,7 +39,7 @@ export default function ingresoE() {
       }
     }
     try {
-      const response = await axios.post("/api/insertProveedor", proveedor);
+      const response = await axios.post("../../backend/api/insertProveedor", proveedor);
       console.log(response.data);
     } catch (error) {
       console.log(error, error.response.data);
