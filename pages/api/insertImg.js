@@ -2,10 +2,10 @@ import mysql from "mysql2/promise";
 const fs = require('fs');
 
 const dbconn = await mysql.createConnection({
-  host: "localhost",
-  database: "inventario",
-  user: "root",
-  password: "",
+  host: "sql201.infinityfree.com",
+  database: "if0_34721661_inventario",
+  user: "if0_34721661",
+  password: "Yl7PKTLjcyaPNTd",
 });
 
 export default async function handler(req, res) {
