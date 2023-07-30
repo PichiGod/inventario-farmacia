@@ -43,19 +43,19 @@ export default function productoNuevo() {
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl1 = `../../backend/api/getClasificacion`;
+      const apiUrl1 = `/api/getClasificacion`;
       const response = await fetch(apiUrl1);
       const res = await response.json();
       console.log(res.clasif);
       setdataClasif(res.clasif);
 
-      const apiUrl2 = `../../backend/api/getProveedor`;
+      const apiUrl2 = `/api/getProveedor`;
       const response2 = await fetch(apiUrl2);
       const res2 = await response2.json();
       console.log(res2.proveedor);
       setdataProveedor(res2.proveedor);
 
-      const apiUrl3 = `../../backend/api/getProducts`;
+      const apiUrl3 = `/api/getProducts`;
       const response3 = await fetch(apiUrl3);
       const res3 = await response3.json();
       console.log(res3.producto);
@@ -150,7 +150,7 @@ export default function productoNuevo() {
     //   alert("Imagen guardada correctamente");
     //   console.log(res.data);
     try {
-      const res1 = await axios.post("../../backend/api/insertProduct", {
+      const res1 = await axios.post("/api/insertProduct", {
         serial: product.serial,
         clasificacion: product.clasificacion,
         descripcion: product.descripcion,
@@ -220,7 +220,7 @@ export default function productoNuevo() {
         serial: product.serial,
       });
 
-      const url = `../../backend/api/getSerialData/?serial=${product.serial}`;
+      const url = `/api/getSerialData/?serial=${product.serial}`;
 
       const respuesta = await fetch(url, { params: data, method: "GET" });
 

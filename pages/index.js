@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `../../backend/api/getUser`;
+      const apiUrl = `/api/getUser`;
       const response = await fetch(apiUrl);
       const res = await response.json();
       console.log(res.users);

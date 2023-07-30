@@ -14,7 +14,7 @@ export default function ingresoE() {
 
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `../../backend/api/getClasificacion`;
+      const apiUrl = `/api/getClasificacion`;
       const response = await fetch(apiUrl);
       const res = await response.json();
       console.log(res.clasif);
@@ -39,7 +39,7 @@ export default function ingresoE() {
       }
     }
     try {
-        const response = await axios.post("../../backend/api/insertClasificacion", clasificacion);
+        const response = await axios.post("/api/insertClasificacion", clasificacion);
         console.log(response.data)
     } catch (error) {
         console.log(error, error.response.data);

@@ -10,7 +10,7 @@ export default function tablas() {
   const [dataResponse, setdataResponse] = useState([]);
   useEffect(() => {
     async function getPageData() {
-      const apiUrl = `../../backend/api/getTableData`;
+      const apiUrl = `/api/getTableData`;
       const response = await fetch(apiUrl);
       const res = await response.json();
       console.log(res.products);
