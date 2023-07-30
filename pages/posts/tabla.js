@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Tstyles from "../../styles/Tabla.module.css";
 import "bootstrap/dist/css/bootstrap.css";
-import images from "./assests/images";
+import images from "../../public/assests/images";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
