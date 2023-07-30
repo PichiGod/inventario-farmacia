@@ -1,6 +1,8 @@
 import shyguy from "./img/shyguy.jpg";
 
-export default {
+const images = {
     img: shyguy
-}
+};
+
+export default images;
     
